@@ -1,0 +1,7 @@
+git clone --recursive https://github.com/ShivaSubhanS/hamer.git
+cd hamer
+build and start: docker compose -f ./docker/docker-compose.yml up -d --build
+start:docker compose -f ./docker/docker-compose.yml up -d
+enter container: docker compose -f ./docker/docker-compose.yml exec hamer-dev /bin/bash
+
+python demo.py     --img_folder example_data     --out_folder demo_out     --batch_size=4     --side_view     --full_frame     --body_detector=regnety

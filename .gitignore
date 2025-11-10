@@ -11,7 +11,8 @@
 /discord_sandbox/
 /demo_out/
 token_channel.csv
-/_DATA/
+/_DATA/hamer_ckpts/checkpoints/hamer.ckpt
+/_DATA/vitpose_ckpts/vitpose_base.pth
 /hamer_training_data/
 /outputs/
 
