@@ -23,7 +23,8 @@ class ViTPoseModel(object):
     }
 
     def __init__(self, device: str | torch.device):
-        self.device = torch.device(device)
+        # Use CPU for ViTPose to save GPU memory for HAMER model
+        self.device = torch.device('cpu')
         self.model_name = 'ViTPose+-G (multi-task train, COCO)'
         self.model = self._load_model(self.model_name)
 
@@ -34,7 +35,11 @@ class ViTPoseModel(object):
     def _load_model(self, name: str) -> nn.Module:
         dic = self.MODEL_DICT[name]
         ckpt_path = dic['model']
-        model = init_pose_model(dic['config'], ckpt_path, device=self.device)
+        # Create a temporary config file with load_from_local set
+        from mmcv import Config
+        cfg = Config.fromfile(dic['config'])
+        cfg.load_from = 'local'
+        model = init_pose_model(cfg, ckpt_path, device=self.device)
         return model
 
     def set_model(self, name: str) -> None:
